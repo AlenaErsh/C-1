@@ -43,30 +43,32 @@ void Ex() {
 
 
 void Task() {
-	int col = 0;
-	bool fl;
+	int col_only_positive = 0;
+	bool only_positive;
 	int j;
 	for ( j = 0; j < m; j++) {
-		fl = true;
-		for (int i = 0; (i < n)&&(fl); i++) {
-			fl=(mas[i][j] > 0) ? true : false;
+		only_positive = true;
+		for (int i = 0; (i < n)&&(only_positive); i++) {
+			if (mas[i][j] <= 0) {
+				only_positive = false;
+			}
 		}
-		if (fl) {
-			col++;
+		if (only_positive) {
+			col_only_positive++;
 			continue;
 		}
 		for (int i = 0; i < n; i++) {
-			mas[i][j - col] = mas[i][j];
+			mas[i][j - col_only_positive] = mas[i][j];
 		}
 	}
-	if (col == m) {
+	if (col_only_positive == m) {
 		cout << "Ошибка. Матрица состоит только из положительных чисел." << endl;
 		Ex();
 		return;
 	}
 	cout<<endl;
 	cout << "Решение задачи:" << endl;
-	PrintMatr(n, j-col);	
+	PrintMatr(n, j-col_only_positive);	
 }
 
 void PrintMatr(int str, int col){
